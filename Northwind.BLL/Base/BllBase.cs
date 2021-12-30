@@ -29,11 +29,13 @@ namespace Northwind.BLL.Base
         }
 
         #endregion
-        public IResponse<TDto> Add(TDto item)
+        public IResponse<TDto> Add(TDto item, bool saveChanges = true)
         {
             try
             {
                 var TResult = repository.Add(mapper.Map<T>(item));
+                if (saveChanges)
+                    Save();
                 return new Response<TDto>
                 {
                     StatusCode = 100,
@@ -80,17 +82,34 @@ namespace Northwind.BLL.Base
             throw new NotImplementedException();
         }
 
-        public TDto Find(int id)
+        public IResponse<TDto> Find(int id)
+        {
+            try
+            {
+                return new Response<TDto>
+                {
+                    StatusCode = 200,
+                    Message = "Success",
+                    Data = mapper.Map<T, TDto>(repository.Find(id))
+                };
+            }
+            catch (Exception ex)
+            {
+                return new Response<TDto>
+                {
+                    StatusCode = 500,
+                    Message = $"Error {ex.Message}",
+                    Data = null
+                };
+            }
+        }
+
+        public IResponse<List<TDto>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public List<TDto> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<TDto> GetAll(Expression<Func<T, bool>> expression)
+        public IResponse<List<TDto>> GetAll(Expression<Func<T, bool>> expression)
         {
             throw new NotImplementedException();
         }
@@ -108,6 +127,11 @@ namespace Northwind.BLL.Base
         public Task<TDto> UpdateAsync()
         {
             throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
+            unitOfWork.SaveChanges();
         }
     }
 }

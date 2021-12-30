@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace Northwind.Interface
 {
-    public interface IGenericService<T,TDto> where T: EntityBase where TDto: DtoBase
+    public interface IGenericService<T, TDto> where T : EntityBase where TDto : DtoBase
     {
-        List<TDto> GetAll();
-        List<TDto> GetAll(Expression<Func<T,bool>> expression);
-        TDto Find(int id);
+        IResponse<List<TDto>> GetAll();
+        IResponse<List<TDto>> GetAll(Expression<Func<T, bool>> expression);
+        IResponse<TDto> Find(int id);
         IQueryable<T> GetIQueryable();
-        IResponse<TDto> Add(TDto item);
+        IResponse<TDto> Add(TDto item, bool saveChanges);
         Task<TDto> AddAsync(TDto item);
         TDto Update(TDto item);
         Task<TDto> UpdateAsync();
         bool DeleteById(int id);
         Task<bool> DeleteByIdAsync(int id);
         bool Delete(TDto item);
-        Task<bool> DeleteAsync(TDto item); 
+        Task<bool> DeleteAsync(TDto item);
+        void Save();
     }
 }
