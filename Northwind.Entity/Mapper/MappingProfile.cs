@@ -13,6 +13,7 @@ namespace Northwind.Entity.Mapper
         {
             CreateMap<Customer, DtoCustomer>().ReverseMap();
             CreateMap<Order, DtoOrder>().ReverseMap();
+            CreateMap<User, DtoUser>().ReverseMap();
         }
     }
 }

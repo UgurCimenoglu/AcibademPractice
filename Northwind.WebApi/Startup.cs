@@ -36,12 +36,23 @@ namespace Northwind.WebApi
             #endregion
 
             #region ApplicationContext
-            services.AddDbContext<NorthwindAcibademPracticeContext>();
+            //DB Baglanti yontem-1
+            //services.AddDbContext<NorthwindAcibademPracticeContext>();
+            //services.AddScoped<DbContext, NorthwindAcibademPracticeContext>();
+
+            //DB Baglanti yontem-2
             services.AddScoped<DbContext, NorthwindAcibademPracticeContext>();
+            services.AddDbContext<NorthwindAcibademPracticeContext>(opt =>
+            {
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer"), optSql => {
+                    optSql.MigrationsAssembly("Northwind.DAL");
+                });
+            });
             #endregion
 
             #region ServiceSection
             services.AddScoped<IOrderService, OrderManager>();
+            services.AddScoped<ICustomerService, CustomerManager>();
             #endregion
 
             #region RepositorySection

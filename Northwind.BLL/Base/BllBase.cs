@@ -91,7 +91,7 @@ namespace Northwind.BLL.Base
 
                 return new Response<bool>
                 {
-                    StatusCode = StatusCodes.Status200OK,
+                    StatusCode = StatusCodes.Status500InternalServerError,
                     Message = $"Error:{ ex.Message}",
                     Data = false
                 };
@@ -111,7 +111,7 @@ namespace Northwind.BLL.Base
             {
                 return new Response<TDto>
                 {
-                    StatusCode = 200,
+                    StatusCode = StatusCodes.Status200OK,
                     Message = "Success",
                     Data = ObjectMapper.Mapper.Map<T, TDto>(repository.Find(id))
                 };
@@ -120,7 +120,7 @@ namespace Northwind.BLL.Base
             {
                 return new Response<TDto>
                 {
-                    StatusCode = 500,
+                    StatusCode = StatusCodes.Status500InternalServerError,
                     Message = $"Error {ex.Message}",
                     Data = null
                 };
