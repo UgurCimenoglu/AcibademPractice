@@ -44,7 +44,8 @@ namespace Northwind.WebApi
             services.AddScoped<DbContext, NorthwindAcibademPracticeContext>();
             services.AddDbContext<NorthwindAcibademPracticeContext>(opt =>
             {
-                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer"), optSql => {
+                opt.UseSqlServer(Configuration.GetConnectionString("SqlServer"), optSql =>
+                {
                     optSql.MigrationsAssembly("Northwind.DAL");
                 });
             });

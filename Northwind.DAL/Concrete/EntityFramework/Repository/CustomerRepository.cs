@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Northwind.DAL.Concrete.EntityFramework.Repository
 {
-    public class CustomerRepository : GenericRepository<Customer> , ICustomerRepository
+    public class CustomerRepository : GenericRepository<Customer>, ICustomerRepository
     {
         public CustomerRepository(DbContext context) : base(context)
         {
@@ -17,6 +17,11 @@ namespace Northwind.DAL.Concrete.EntityFramework.Repository
         public IQueryable CustomerReport()
         {
             return dbSet.AsQueryable();
+        }
+
+        public Customer GetCustomerByStringId(string id)
+        {
+            return dbSet.Find(id);
         }
     }
 }

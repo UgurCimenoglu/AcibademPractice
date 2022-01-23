@@ -10,11 +10,11 @@ namespace Northwind.DAL.Concrete.EntityFramework.Context
 {
     public partial class NorthwindAcibademPracticeContext : DbContext
     {
-        IConfiguration configuration;
-        public NorthwindAcibademPracticeContext(IConfiguration configuration)
-        {
-            this.configuration = configuration;
-        }
+        //IConfiguration configuration;
+        //public NorthwindAcibademPracticeContext(IConfiguration configuration)
+        //{
+        //    this.configuration = configuration;
+        //}
 
         public NorthwindAcibademPracticeContext(DbContextOptions<NorthwindAcibademPracticeContext> options)
             : base(options)
@@ -57,7 +57,7 @@ namespace Northwind.DAL.Concrete.EntityFramework.Context
             {
                 //optionsBuilder.UseSqlServer("Server=(localdb)\\MSSQLLocalDB;Database=NorthwindAcibademPractice;Trusted_Connection=true;");
                 //optionsBuilder.UseSqlServer(configuration.GetConnectionString("SqlServer"));
-                optionsBuilder.UseLazyLoadingProxies(false);
+                //optionsBuilder.UseLazyLoadingProxies(false);
             }
         }
 

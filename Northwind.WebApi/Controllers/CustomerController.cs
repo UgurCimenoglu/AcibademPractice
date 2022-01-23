@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Northwind.Entity.Base;
 using Northwind.Entity.Dto;
+using Northwind.Entity.IBase;
 using Northwind.Entity.Models;
 using Northwind.Interface;
 using Northwind.WebApi.Base;
@@ -17,6 +19,24 @@ namespace Northwind.WebApi.Controllers
     {
         public CustomerController(ICustomerService service) : base(service)
         {
+        }
+
+        [HttpGet("FindByStringId")]
+        public IResponse<DtoCustomer> FindByStringId(string id)
+        {
+            try
+            {
+                return service.GetCustomerByStringId(id);
+            }
+            catch (Exception ex)
+            {
+                return new Response<DtoCustomer>
+                {
+                    Message = $"Error:{ex.Message}",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                    Data = null
+                };
+            }
         }
     }
 }

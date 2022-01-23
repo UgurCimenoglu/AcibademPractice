@@ -14,7 +14,7 @@ namespace Northwind.WebApi.Base
     [ApiController]
     public class ApiBaseController<TInterface,T,TDto> : ControllerBase where TInterface : IGenericService<T,TDto> where T : EntityBase where TDto : DtoBase
     {
-        private TInterface service;
+        protected TInterface service;
 
         public ApiBaseController(TInterface service)
         {
