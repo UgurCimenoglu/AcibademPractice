@@ -8,7 +8,7 @@ namespace Northwind.Entity.Dto
 {
     public class DtoUserToken : DtoBase
     {
-        public User User { get; set; }
+        public DtoLoginUser User { get; set; }
         public object AccessToken { get; set; }
     }
 }

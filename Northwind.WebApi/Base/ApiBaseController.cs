@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Northwind.Entity.Base;
 using Northwind.Entity.IBase;
@@ -12,6 +13,7 @@ namespace Northwind.WebApi.Base
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ApiBaseController<TInterface,T,TDto> : ControllerBase where TInterface : IGenericService<T,TDto> where T : EntityBase where TDto : DtoBase
     {
         protected TInterface service;

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Northwind.BLL;
 using Northwind.DAL.Abstract;
@@ -16,6 +18,7 @@ using Northwind.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Northwind.WebApi
@@ -33,6 +36,21 @@ namespace Northwind.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             #region JwtTokenService
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidIssuer = Configuration["Tokens:Issuer"],
+                    ValidAudience = Configuration["Tokens:Audience"],
+                    RequireSignedTokens = true,
+                    RequireExpirationTime = true,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Tokens:Key"]))
+                };
+            });
+
             #endregion
 
             #region ApplicationContext
@@ -54,11 +72,13 @@ namespace Northwind.WebApi
             #region ServiceSection
             services.AddScoped<IOrderService, OrderManager>();
             services.AddScoped<ICustomerService, CustomerManager>();
+            services.AddScoped<IUserService, UserManager>();
             #endregion
 
             #region RepositorySection
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             #endregion
 
             #region UnitOfWork
