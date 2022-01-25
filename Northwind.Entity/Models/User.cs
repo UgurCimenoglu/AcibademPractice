@@ -22,6 +22,9 @@ namespace Northwind.Entity.Models
         public string UserCode { get; set; }
         [MaxLength(60)]
         [Required(ErrorMessage = "Password is required.")]
-        public string Password { get; set; }
+        public byte[] PasswordHash { get; set; }
+        [Required(ErrorMessage = "Password is required.")]
+        public byte[] PasswordSalt { get; set; }
+
     }
 }

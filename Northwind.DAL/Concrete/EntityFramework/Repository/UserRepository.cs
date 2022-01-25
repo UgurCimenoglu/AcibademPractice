@@ -15,10 +15,10 @@ namespace Northwind.DAL.Concrete.EntityFramework.Repository
         {
         }
 
-        public User Login(DtoLogin login)
+        public User CheckFromUserCode(DtoLogin login)
         {
             //var user = dbSet.Where(u => u.UserCode == login.UserCode && u.Password == login.Password);
-            var user = dbSet.FirstOrDefault(u => u.UserCode == login.UserCode && u.Password == login.Password);
+            var user = dbSet.FirstOrDefault(u => u.UserCode == login.UserCode);
             return user;
         }
     }

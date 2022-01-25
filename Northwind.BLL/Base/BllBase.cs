@@ -19,7 +19,7 @@ namespace Northwind.BLL.Base
         #region Variables
         readonly IUnitOfWork unitOfWork;
         readonly IServiceProvider service;
-        readonly IGenericRepository<T> repository;
+        protected readonly IGenericRepository<T> repository;
         public BllBase(IServiceProvider service)
         {
             this.unitOfWork = service.GetService<IUnitOfWork>();

@@ -42,7 +42,26 @@ namespace Northwind.WebApi.Controllers
                     StatusCode = StatusCodes.Status406NotAcceptable
                 };
             }
+        }
 
+        [HttpPost("register")]
+        [AllowAnonymous]
+        public IResponse<DtoUserForRegister> Register(DtoUserForRegister user)
+        {
+            try
+            {
+                return userService.Register(user);
+            }
+            catch (Exception e)
+            {
+                return new Response<DtoUserForRegister>
+                {
+                    Data = null,
+                    Message = $"Error: {e.Message}",
+                    StatusCode = StatusCodes.Status406NotAcceptable
+                };
+
+            }
 
         }
     }

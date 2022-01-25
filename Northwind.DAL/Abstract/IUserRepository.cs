@@ -8,6 +8,6 @@ namespace Northwind.DAL.Abstract
 {
     public interface IUserRepository
     {
-        User Login(DtoLogin login);
+        public User CheckFromUserCode(DtoLogin login);
     }
 }
